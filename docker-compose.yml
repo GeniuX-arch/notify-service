@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  notify-service:
+    container_name: notify-service-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    restart: always
