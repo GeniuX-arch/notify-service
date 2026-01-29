@@ -1,23 +1,14 @@
 FROM node:20-alpine
 
-# Dependencias del sistema
-RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
 
-# Habilitar pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm
 
-# Copiar archivos de dependencias
 COPY package.json pnpm-lock.yaml* ./
-
-# Instalar dependencias
 RUN pnpm install
 
-# Copiar el resto del código
 COPY . .
 
 EXPOSE 3000
 
-# Modo desarrollo con hot reload
 CMD ["pnpm", "run", "start:dev"]
